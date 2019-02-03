@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   algorithm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 13:34:21 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/02 18:18:33 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/03 17:40:24 by konstantin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,30 +55,39 @@ void		recursive_path(t_farm *farm, t_list **path)
 		return ;
 	farm->is_blocked = (farm->type != END) ? BLOCKED : UNBLOCKED;
 	conn = farm->connections;
-	to_next = DOBLE_DEREF(conn);
-	min = to_next->distance;
-	conn = conn->next;
+	to_next = NULL;
+	min = _INT_MAX;
 	while(conn)
 	{
-		if (DOBLE_DEREF(conn)->distance < min)
+		if (DOBLE_DEREF(conn)->distance < min &&
+				DOBLE_DEREF(conn)->is_blocked != BLOCKED)
 		{
 			to_next = DOBLE_DEREF(conn);
 			min = to_next->distance;
 		}
 		conn = conn->next;
 	}
-	recursive_path(to_next, path);
+	if (to_next)
+		recursive_path(to_next, path);
 }
 
-void	shortest_path(t_lemin *lemin)
+void	shortest_path(t_lemin *lemin, t_list **paths)
 {
 	t_list		*path;
+	t_list		*conn;
 
-	path = NULL;
-	recursive_path(lemin->end, &path);
-	while (path)
+	conn = lemin->end->connections;
+	while (conn)
 	{
-		ft_printf(path->next ? "%s -> " : "%s\n" , DOBLE_DEREF(path)->name);
-		path = path->next;
+		path = NULL;
+		ft_lstadd(&path, ft_lstnew(&(lemin->end), sizeof(lemin->end)));
+		recursive_path(DOBLE_DEREF(conn), &path);
+		ft_lstadd(paths, ft_lstnew(&path, sizeof(path)));
+		// while (path)
+		// {
+		// 	ft_printf(path->next ? "%s -> " : "%s\n" , DOBLE_DEREF(path)->name);
+		// 	path = path->next;
+		// }
+		conn = conn->next;
 	}
 }

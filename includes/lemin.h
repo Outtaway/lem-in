@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:17:21 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/02 18:23:35 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/03 17:35:14 by konstantin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libftprintf/includes/ft_printf.h"
 # include "../gnl/get_next_line.h"
+
 
 # define WR(line) write(1, line, ft_strlen(line))
 # define ERROR() { WR("ERROR\n"); exit(1); }
@@ -56,7 +57,8 @@ typedef struct				s_lemin
 		size_t				ant;
 }							t_lemin;
 
-void						shortest_path(t_lemin *lemin);
+
+void						shortest_path(t_lemin *lemin, t_list **paths);
 void						bfs(t_lemin *lemin);
 void						get_lemin_struct(t_lemin *lemin);
 void						algorithm(t_lemin *lemin);

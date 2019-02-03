@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:28:07 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/02 18:03:56 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/03 17:35:52 by konstantin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,31 +36,28 @@ t_list	*queue_pop(t_list **list)
 int		main(int argc, char **argv)
 {
 	t_lemin		lemin;
-	// t_list		*temp;
-	// t_farm		*farm;
-	// t_list		*temp_2;
+	t_list		*paths;
+	t_list		*path;
 
+	paths = NULL;
 	ft_bzero(&lemin, sizeof(t_lemin));
 	get_lemin_struct(&lemin);
-	// temp_2 = lemin.farms;
-	// while (temp_2)
-	// {
-	// 	temp = ((t_farm *)(temp_2->content))->connections;
-	// 	ft_printf("%s %p\n", ((t_farm *)(temp_2->content))->name, (t_farm *)(temp_2->content));
-	// 	while (temp)
-	// 	{
-	// 		farm = *((t_farm **)(temp->content));
-	// 		ft_printf("%s\n", farm->name);
-	// 		temp = temp->next;
-	// 	}
-	// 	temp_2 = temp_2->next;
-	// }
 	if (!lemin.start || !lemin.end)
 		ERROR();
 	bfs(&lemin);
 	if (lemin.end->distance == _INT_MAX)
 		ERROR();
-	shortest_path(&lemin);
+	shortest_path(&lemin, &paths);
+	while (paths)
+	{
+		path = *((t_list **)(paths->content));
+		 while (path)
+		 {
+		 	ft_printf(path->next ? "%s -> " : "%s\n" , DOBLE_DEREF(path)->name);
+		 	path = path->next;
+		 }
+		paths = paths->next;
+	}
 //	system("leaks lem-in");
 	return (0);
 }

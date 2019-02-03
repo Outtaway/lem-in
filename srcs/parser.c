@@ -118,7 +118,7 @@ void	get_lemin_struct(t_lemin *lemin)
 	if ((lemin->ants_count = ft_atoi(line)) == 0)
 		ERROR();
 	ft_strdel(&line);
-	while (get_next_line(0, &line) > 0)
+	while (get_next_line(0, &line) > 0 && ft_strcmp(line, "exit"))
 	{
 		if (line_numeric(line, 1))
 			ft_lstadd(&(lemin->farms), create_farm_node(line, REGULAR));
