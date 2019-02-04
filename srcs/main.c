@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
+/*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:28:07 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/03 17:35:52 by konstantin       ###   ########.fr       */
+/*   Updated: 2019/02/04 14:43:13 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,20 @@ int		main(int argc, char **argv)
 {
 	t_lemin		lemin;
 	t_list		*paths;
-	t_list		*path;
+	char		*input;
 
-	paths = NULL;
-	ft_bzero(&lemin, sizeof(t_lemin));
-	get_lemin_struct(&lemin);
+	input = (char *)malloc(sizeof(char) * 1000000);
+	get_lemin_struct(&lemin, input);
 	if (!lemin.start || !lemin.end)
 		ERROR();
 	bfs(&lemin);
 	if (lemin.end->distance == _INT_MAX)
 		ERROR();
-	shortest_path(&lemin, &paths);
-	while (paths)
-	{
-		path = *((t_list **)(paths->content));
-		 while (path)
-		 {
-		 	ft_printf(path->next ? "%s -> " : "%s\n" , DOBLE_DEREF(path)->name);
-		 	path = path->next;
-		 }
-		paths = paths->next;
-	}
-//	system("leaks lem-in");
+	shortest_paths(&lemin, &paths);
+//	display_paths(paths);
+	write(1, input, ft_strlen(input));
+	scatter_ants(&lemin, paths);
+	// system("leaks lem-in");
+	free(input);
 	return (0);
 }

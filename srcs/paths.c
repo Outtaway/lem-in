@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   algorithm.c                                        :+:      :+:    :+:   */
+/*   paths.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
+/*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 13:34:21 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/03 17:40:24 by konstantin       ###   ########.fr       */
+/*   Updated: 2019/02/04 13:54:54 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	bfs(t_lemin *lemin)
 {
 	t_list		*queue;
-	t_farm		*obj;
 	t_list		*iter;
 	t_farm		*conn;
 	t_list		*node;
@@ -26,34 +25,32 @@ void	bfs(t_lemin *lemin)
 	while (queue != NULL)
 	{
 		node = queue_pop(&queue);
-		obj = DOBLE_DEREF(node);
-		iter = obj->connections;
+		iter = DOBLE_DEREF(node)->connections;
 		while (iter)
 		{
 			conn = DOBLE_DEREF(iter);
 			if (conn->state == UNMARKED)
 			{
 				conn->state = MARKED;
-				conn->distance = obj->distance + 1;
+				conn->distance = DOBLE_DEREF(node)->distance + 1;
 				ft_lstadd(&queue, ft_lstnew(&conn, sizeof(conn)));
 			}
 			iter = iter->next;
 		}
-		free(node->content);
-		free(node);
+		CLEAR_NODE(node);
 	}
 }
 
 void		recursive_path(t_farm *farm, t_list **path)
 {
 	t_list	*conn;
-	int 	min;
 	t_farm	*to_next;
+	int		min;
 
 	ft_lstadd(path, ft_lstnew(&farm, sizeof(farm)));
 	if (farm->type == START)
 		return ;
-	farm->is_blocked = (farm->type != END) ? BLOCKED : UNBLOCKED;
+	farm->is_blocked = BLOCKED;
 	conn = farm->connections;
 	to_next = NULL;
 	min = _INT_MAX;
@@ -71,23 +68,35 @@ void		recursive_path(t_farm *farm, t_list **path)
 		recursive_path(to_next, path);
 }
 
-void	shortest_path(t_lemin *lemin, t_list **paths)
+void	shortest_paths(t_lemin *lemin, t_list **paths)
 {
 	t_list		*path;
 	t_list		*conn;
 
 	conn = lemin->end->connections;
+	lemin->end->is_blocked = BLOCKED;
 	while (conn)
 	{
 		path = NULL;
 		ft_lstadd(&path, ft_lstnew(&(lemin->end), sizeof(lemin->end)));
 		recursive_path(DOBLE_DEREF(conn), &path);
 		ft_lstadd(paths, ft_lstnew(&path, sizeof(path)));
-		// while (path)
-		// {
-		// 	ft_printf(path->next ? "%s -> " : "%s\n" , DOBLE_DEREF(path)->name);
-		// 	path = path->next;
-		// }
 		conn = conn->next;
+	}
+}
+
+void	display_paths(t_list *paths)
+{
+	t_list		*path;
+
+	while (paths)
+	{
+		path = *((t_list **)(paths->content));
+		while (path)
+		{
+			ft_printf(path->next ? "%s -> " : "%s\n" , DOBLE_DEREF(path)->name);
+			path = path->next;
+		}
+		paths = paths->next;
 	}
 }

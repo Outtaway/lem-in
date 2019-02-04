@@ -1,0 +1,7 @@
+.idea
+.vscode
+CMakeLists.txt
+cmake-build-debug
+*.o
+libftprintf.a
+*.gch
