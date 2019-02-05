@@ -6,7 +6,7 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 13:34:21 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/04 13:54:54 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/05 13:33:24 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,4 +99,22 @@ void	display_paths(t_list *paths)
 		}
 		paths = paths->next;
 	}
+}
+
+void	get_paths_length(t_list **paths_length, t_list *paths)
+{
+	t_list	*path;
+	size_t	len;
+	t_list	*res;
+
+	if (paths->next)
+		get_paths_length(paths_length, paths->next);
+	len = 0;
+	path = *((t_list **)(paths->content));
+	while (path->next)
+	{
+		path = path->next;
+		++len;
+	}
+	ft_lstadd(paths_length, ft_lstnew(&len, sizeof(len)));
 }

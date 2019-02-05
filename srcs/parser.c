@@ -6,22 +6,22 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:40:22 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/04 14:57:29 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/05 17:58:08 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-t_list	*create_farm_node(char *data, char type)
+t_list	*create_farm_node(t_lemin *lemin, char *data, char type)
 {
 	t_farm	res;
 	int		name_size;
 
 	name_size = ft_strlen(data) - ft_strlen(ft_strchr(data, ' '));
 	ft_strncpy(res.name, data, name_size);
+	res.name[name_size] = 0;
 	if (res.name[0] == 'L')
 		ERROR();
-	res.name[name_size] = 0;
 	res.x = ft_atoi(ft_strchr(data, ' '));
 	res.y = ft_atoi(ft_strchr(ft_strchr(data, ' ') + 1, ' '));
 	res.type = type;
@@ -29,6 +29,9 @@ t_list	*create_farm_node(char *data, char type)
 	res.state = UNMARKED;
 	res.distance = type == START ? 0 : _INT_MAX;
 	res.is_blocked = UNBLOCKED;
+	res.ants_count = type == START ? lemin->ants_count : 0;
+	res.ant.ant_id = NO_ANT;
+	res.ant.way_id = NO_ANT;
 	return (ft_lstnew(&res, sizeof(res)));
 }
 
@@ -66,7 +69,7 @@ void	get_lemin_struct(t_lemin *lemin, char *input)
 	while (get_next_line(0, &line) > 0)
 	{
 		if (line_numeric(line, 1))
-			ft_lstadd(&(lemin->farms), create_farm_node(line, REGULAR));
+			ft_lstadd(&(lemin->farms), create_farm_node(lemin, line, REGULAR));
 		else if (line_connection(line))
 			set_connection(lemin->farms, line);
 		else if (!ft_strcmp("##start", line) || !ft_strcmp("##end", line))
@@ -76,7 +79,7 @@ void	get_lemin_struct(t_lemin *lemin, char *input)
 			DEL_GET(line);
 			if (!line_numeric(line, 1))
 				ERROR();
-			ft_lstadd(&(lemin->farms), create_farm_node(line, type));
+			ft_lstadd(&(lemin->farms), create_farm_node(lemin, line, type));
 			(type == START) ? (lemin->start = DEREF(lemin->farms)) :
 					(lemin->end = (t_farm *)(lemin->farms->content));
 		}

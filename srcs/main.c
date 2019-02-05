@@ -6,11 +6,24 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:28:07 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/04 14:43:13 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/05 16:33:25 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
+
+size_t	list_size(t_list *list)
+{
+	size_t		len;
+
+	len = 0;
+	while (list)
+	{
+		list = list->next;
+		++len;
+	}
+	return (len);
+}
 
 t_list	*queue_pop(t_list **list)
 {
@@ -47,8 +60,8 @@ int		main(int argc, char **argv)
 	if (lemin.end->distance == _INT_MAX)
 		ERROR();
 	shortest_paths(&lemin, &paths);
-//	display_paths(paths);
-	write(1, input, ft_strlen(input));
+	display_paths(paths);
+//	write(1, input, ft_strlen(input));
 	scatter_ants(&lemin, paths);
 	// system("leaks lem-in");
 	free(input);
