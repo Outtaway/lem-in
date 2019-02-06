@@ -6,15 +6,15 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:28:07 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/05 16:33:25 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/06 13:44:01 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-size_t	list_size(t_list *list)
+int		list_size(t_list *list)
 {
-	size_t		len;
+	int		len;
 
 	len = 0;
 	while (list)

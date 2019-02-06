@@ -6,7 +6,7 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:17:21 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/05 17:56:08 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/06 13:45:40 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct				s_lemin
 void						scatter_ants(t_lemin *lemin, t_list *paths);
 t_list						*get_node_by_name(t_list *list, char *name);
 
-size_t						list_size(t_list *list);
+int							list_size(t_list *list);
 
 char						line_connection(char *line);
 char						line_numeric(char *line, char two_blanks);
