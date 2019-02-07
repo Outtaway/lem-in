@@ -6,7 +6,7 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:28:07 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/06 13:44:01 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/07 19:12:51 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,16 @@ int		main(int argc, char **argv)
 	if (lemin.end->distance == _INT_MAX)
 		ERROR();
 	shortest_paths(&lemin, &paths);
+	// write(1, input, ft_strlen(input));
 	display_paths(paths);
-//	write(1, input, ft_strlen(input));
 	scatter_ants(&lemin, paths);
 	// system("leaks lem-in");
+	t_list	*end_con = lemin.end->connections;
+	while (end_con)
+	{
+		ft_printf("%s\n", DOBLE_DEREF(end_con)->name);
+		end_con = end_con->next;
+	}
 	free(input);
 	return (0);
 }
