@@ -6,7 +6,7 @@
 /*   By: kpshenyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/29 10:19:29 by kpshenyc          #+#    #+#             */
-/*   Updated: 2018/11/02 12:59:23 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/08 21:08:27 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,11 @@ char	*copy_loop(char *str, char *buff, int end)
 	return (temp);
 }
 
-int		get_next_line(const int fd, char **line)
+int		get_next_line(const int fd, char **line, const int buff_size)
 {
 	static char	*str = NULL;
 	int			end;
-	char		buff[BUFF_SIZE + 1];
+	char		buff[buff_size + 1];
 	char		*slash;
 	char		*temp;
 

@@ -6,7 +6,7 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 13:28:26 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/08 15:52:02 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/08 20:50:24 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ void	scatter_ants(t_lemin *lemin, t_list *paths)
 	t_list	*temp;
 
 	ant_id = 0;
-	ants_in_ways = (t_ant *)malloc(sizeof(t_ant) * lemin->ants_count);
+	ants_in_ways = (t_ant *)malloc(sizeof(t_ant) * (lemin->ants_count + 1));
 	ft_memset(ants_in_ways, NO_ANT, sizeof(t_ant) * lemin->ants_count);
 	while (ants_in_ways[lemin->ants_count - 1].ant_id == NO_ANT)
 	{
@@ -220,14 +220,6 @@ void	scatter_ants(t_lemin *lemin, t_list *paths)
 			ant.ant_id = ant_id;
 			ant.way_id = i;
 			update_ants(lemin, ants_in_ways, (*((t_list **)(paths->content)))->next, ant);
-//			for (t_list *lol = *((t_list **)(paths->content)); lol; lol = lol->next)
-//			{
-//				ft_printf("name: %s, id: %d, way: %d ", DOBLE_DEREF(lol)->name, DOBLE_DEREF(lol)->ant.ant_id, DOBLE_DEREF(lol)->ant.way_id);
-//				if (!(lol->next))
-//					ft_printf("\n");
-//				else
-//					ft_printf("\t\t");
-//			}
 			paths = paths->next;
 			++ant_id;
 			++i;

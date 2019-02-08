@@ -6,7 +6,7 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:40:22 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/05 17:58:08 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/08 21:19:17 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,31 +61,27 @@ void	get_lemin_struct(t_lemin *lemin, char *input)
 	char	*line;
 	char	type;
 
-	get_next_line(0, &line);
-	if ((lemin->ants_count = ft_atoi(line)) == 0 || !line_numeric(line, 0))
+	if ((lemin->ants_count = ft_atoi(input)) == 0 || !line_numeric(input, 0))
 		ERROR();
-	ADD_LINE(input, line);
-	ft_strdel(&line);
-	while (get_next_line(0, &line) > 0)
+	input = ft_strchr(input, '\0') + 1;
+	while (*input)
 	{
-		if (line_numeric(line, 1))
-			ft_lstadd(&(lemin->farms), create_farm_node(lemin, line, REGULAR));
-		else if (line_connection(line))
-			set_connection(lemin->farms, line);
-		else if (!ft_strcmp("##start", line) || !ft_strcmp("##end", line))
+		if (line_numeric(input, 1))
+			ft_lstadd(&(lemin->farms), create_farm_node(lemin, input, REGULAR));
+		else if (line_connection(input))
+			set_connection(lemin->farms, input);
+		else if (!ft_strcmp("##start", input) || !ft_strcmp("##end", input))
 		{
-			type = !ft_strcmp("##start", line) ? START : END;
-			ADD_LINE(input, line);
-			DEL_GET(line);
-			if (!line_numeric(line, 1))
+			type = !ft_strcmp("##start", input) ? START : END;
+			input = ft_strchr(input, '\0') + 1;
+			if (!line_numeric(input, 1))
 				ERROR();
-			ft_lstadd(&(lemin->farms), create_farm_node(lemin, line, type));
+			ft_lstadd(&(lemin->farms), create_farm_node(lemin, input, type));
 			(type == START) ? (lemin->start = DEREF(lemin->farms)) :
 					(lemin->end = (t_farm *)(lemin->farms->content));
 		}
-		else if (line[0] != '#')
+		else if (input[0] != '#')
 			ERROR();
-		ADD_LINE(input, line);
-		ft_strdel(&line);
+		input = ft_strchr(input, '\0') + 1;
 	}
 }

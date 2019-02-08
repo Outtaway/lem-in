@@ -6,7 +6,7 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:17:21 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/06 13:45:40 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/08 21:09:15 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 # define WR(line) write(1, line, ft_strlen(line))
 # define ERROR() { WR("ERROR\n"); exit(1); }
-# define DEL_GET(line) ft_strdel(&line); get_next_line(0, &line);
+# define DEL_GET(line, bf) ft_strdel(&line); get_next_line(0, &line, bf);
 # define DEREF(list) ((t_farm *)((list)->content))
 # define DOBLE_DEREF(list) (*((t_farm **)(list->content)))
 # define CLEAR_NODE(node) free(node->content); free(node);
