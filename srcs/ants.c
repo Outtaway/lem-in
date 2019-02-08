@@ -6,12 +6,12 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 13:28:26 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/07 11:04:55 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/08 15:52:02 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
-
+#include <stdio.h>
 //void	update_ants(t_lemin *lemin, t_ant *ants_in_ways, t_list *path, t_ant ant)
 //{
 //	t_ant	prev;
@@ -83,19 +83,17 @@ int		*ants_in_each_way(t_ant *ants_in_ways, t_lemin *lemin, t_list *paths)
 {
 	int		*res;
 	int		i;
-	int		ants;
 	int		j;
 
 	res = (int *)malloc(sizeof(int) * list_size(paths));
 	i = -1;
 	while (++i < list_size(paths))
 	{
-		ants = 0;
+		res[i] = 0;
 		j = -1;
 		while (++j < lemin->ants_count)
 			if (ants_in_ways[j].way_id == i)
-				ants++;
-		res[i] = ants;
+				res[i]++;
 	}
 	return (res);
 }

@@ -72,6 +72,7 @@ void	shortest_paths(t_lemin *lemin, t_list **paths)
 {
 	t_list		*path;
 	t_list		*conn;
+	t_list		*temp;
 
 	conn = lemin->end->connections;
 	lemin->end->is_blocked = BLOCKED;
@@ -80,7 +81,18 @@ void	shortest_paths(t_lemin *lemin, t_list **paths)
 		path = NULL;
 		ft_lstadd(&path, ft_lstnew(&(lemin->end), sizeof(lemin->end)));
 		recursive_path(DOBLE_DEREF(conn), &path);
-		ft_lstadd(paths, ft_lstnew(&path, sizeof(path)));
+		if (DOBLE_DEREF(path)->type != START)
+		{
+			while (path)
+			{
+				temp = path;
+				path = path->next;
+				free(temp->content);
+				free(temp);
+			}
+		}
+		else
+			ft_lstadd(paths, ft_lstnew(&path, sizeof(path)));
 		conn = conn->next;
 	}
 }

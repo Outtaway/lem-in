@@ -60,9 +60,7 @@ void	get_lemin_struct(t_lemin *lemin, char *input)
 {
 	char	*line;
 	char	type;
-	int		i;
 
-	i = 0;
 	get_next_line(0, &line);
 	if ((lemin->ants_count = ft_atoi(line)) == 0 || !line_numeric(line, 0))
 		ERROR();
@@ -71,10 +69,7 @@ void	get_lemin_struct(t_lemin *lemin, char *input)
 	while (get_next_line(0, &line) > 0)
 	{
 		if (line_numeric(line, 1))
-		{
 			ft_lstadd(&(lemin->farms), create_farm_node(lemin, line, REGULAR));
-			++i;
-		}
 		else if (line_connection(line))
 			set_connection(lemin->farms, line);
 		else if (!ft_strcmp("##start", line) || !ft_strcmp("##end", line))
@@ -93,5 +88,4 @@ void	get_lemin_struct(t_lemin *lemin, char *input)
 		ADD_LINE(input, line);
 		ft_strdel(&line);
 	}
-	ft_printf("%d\n", i);
 }
