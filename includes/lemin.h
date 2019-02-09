@@ -6,7 +6,7 @@
 /*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:17:21 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/09 13:38:26 by konstantin       ###   ########.fr       */
+/*   Updated: 2019/02/09 22:20:42 by konstantin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@
 # define UNBLOCKED 0
 # define NO_ANT -1
 
+#pragma pack(1)
+
 typedef struct				s_ant
 {
 	int						ant_id;
@@ -42,16 +44,16 @@ typedef struct				s_ant
 
 typedef struct				s_farm
 {
-		char				name[BUFF];
-		t_list				*connections;
-		int					x;
-		int					y;
 		unsigned char		type : 2;
 		unsigned char		state : 2;
-		int					distance;
 		unsigned char		is_blocked : 1;
-		t_ant				ant;
+		int					x;
+		int					y;
 		int					ants_count;
+		int					distance;
+		char				name[BUFF];
+		t_list				*connections;
+		t_ant				ant;
 }							t_farm;
 
 typedef struct				s_lemin

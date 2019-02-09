@@ -6,7 +6,7 @@
 /*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:28:07 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/09 12:28:39 by konstantin       ###   ########.fr       */
+/*   Updated: 2019/02/09 22:21:30 by konstantin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,31 +63,9 @@ int		main(int argc, char **argv)
 	t_list		*paths;
 	char		*line;
 
+	// ft_printf("%d\n", sizeof(t_farm));
 	ft_bzero(&lemin, sizeof(lemin));
 	paths = NULL;
-//	input = (char *)malloc(sizeof(char) * 1000000);
-//	size = read(0, input, 1000000);
-//	input[size] = '\0';
-//	lemin.input = ft_strdup("5\n"
-//	"##start\n"
-//	"1 1 0\n\n"
-//	"##end\n"
-//	"2 2 0\n"
-//	"3 3 0\n"
-//	"4 4 0\n"
-//	"5 5 0\n"
-//	"6 6 0\n"
-//	"7 7 0\n"
-//	"1-3\n"
-//	"3-2\n"
-//	"1-4\n"
-//	"4-2\n"
-//	"1-5\n"
-//	"5-2\n"
-//	"1-6\n"
-//	"6-2\n"
-//	"1-7\n"
-//	"7-2\n");
 	get_lemin_struct(&lemin);
 	if (!lemin.start || !lemin.end)
 		ERROR(6);
@@ -96,7 +74,7 @@ int		main(int argc, char **argv)
 		ERROR(7);
 	shortest_paths(&lemin, &paths);
 	display_input(lemin.input);
-//	display_paths(paths);
+// //	display_paths(paths);
 	scatter_ants(&lemin, paths);
 	return (0);
 }

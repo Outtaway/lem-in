@@ -6,13 +6,13 @@
 /*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 13:28:26 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/09 12:22:15 by konstantin       ###   ########.fr       */
+/*   Updated: 2019/02/09 22:16:47 by konstantin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-void	update_ants(t_lemin *lemin, t_ant *ants_in_ways, t_list *path, t_ant ant)
+void	update_ants(t_lemin *lemin, int *amounts_of_ants, t_list *path, t_ant ant)
 {
 	t_ant	prev;
 	int		i;
@@ -22,12 +22,10 @@ void	update_ants(t_lemin *lemin, t_ant *ants_in_ways, t_list *path, t_ant ant)
 	prev = ant;
 	while (path)
 	{
-		if (DOBLE_DEREF(path)->type == END)
+		if (DOBLE_DEREF(path)->type == END && prev.ant_id != NO_ANT)
 		{
-			i = 0;
-			while (i < lemin->ants_count && ants_in_ways[i].ant_id != NO_ANT)
-				++i;
-			ants_in_ways[i] = prev;
+			amounts_of_ants[prev.way_id]++;
+			lemin->end->ants_count++;
 			break;
 		}
 		if (++i == 0)
@@ -135,15 +133,13 @@ void	move_ants(t_lemin *lemin, char new_ant, t_list *path, t_ant ant)
 	}
 }
 
-void	display_movements(t_lemin *lemin, t_ant *ants_in_ways, t_list *paths)
+void	display_movements(t_lemin *lemin, int *amounts_of_ants, t_list *paths)
 {
-	int		*amounts_of_ants;
 	int 	i;
 	t_list	*temp;
 	int		ant_id;
 
 	ant_id = 1;
-	amounts_of_ants = ants_in_each_way(ants_in_ways, lemin, paths);
 	clear_paths(paths);
 	while (lemin->end->ants_count != lemin->ants_count)
 	{
@@ -163,35 +159,35 @@ void	display_movements(t_lemin *lemin, t_ant *ants_in_ways, t_list *paths)
 		}
 		write(1, "\n", 1);
 	}
-	free(amounts_of_ants);
 }
 
 void	scatter_ants(t_lemin *lemin, t_list *paths)
 {
-	t_ant	*ants_in_ways;
+	int		*amounts_of_ants;
 	int		ant_id;
 	t_ant	ant;
 	int		i;
 	t_list	*temp;
 
 	ant_id = 0;
-	ants_in_ways = (t_ant *)malloc(sizeof(t_ant) * (lemin->ants_count + 1));
-	ft_memset(ants_in_ways, NO_ANT, sizeof(t_ant) * lemin->ants_count);
-	while (ants_in_ways[lemin->ants_count - 1].ant_id == NO_ANT)
+	amounts_of_ants = (int *)malloc(list_size(paths) * sizeof(int));
+	ft_bzero(amounts_of_ants, sizeof(int) * list_size(paths));
+	while (lemin->end->ants_count != lemin->ants_count)
 	{
 		i = 0;
 		temp = paths;
-		while (paths)
+		while (paths && lemin->end->ants_count != lemin->ants_count)
 		{
 			ant.ant_id = ant_id;
 			ant.way_id = i;
-			update_ants(lemin, ants_in_ways, (*((t_list **)(paths->content)))->next, ant);
+			update_ants(lemin, amounts_of_ants, (*((t_list **)(paths->content)))->next, ant);
 			paths = paths->next;
 			++ant_id;
 			++i;
 		}
 		paths = temp;
 	}
-	display_movements(lemin, ants_in_ways, paths);
-	free(ants_in_ways);
+	lemin->end->ants_count = 0;
+	display_movements(lemin, amounts_of_ants, paths);
+	// free(amounts_of_ants);
 }
