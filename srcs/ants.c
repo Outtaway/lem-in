@@ -3,48 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ants.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 13:28:26 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/08 20:50:24 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/09 12:22:15 by konstantin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
-#include <stdio.h>
-//void	update_ants(t_lemin *lemin, t_ant *ants_in_ways, t_list *path, t_ant ant)
-//{
-//	t_ant	prev;
-//	int		i;
-//	t_ant	temp;
-//
-//	i = 0;
-//	path = path->next;
-//	prev = DOBLE_DEREF(path)->ant;
-//	while (path)
-//	{
-//		if (i == 0)
-//			DOBLE_DEREF(path)->ant = ant;
-//		if (prev.ant_id == NO_ANT && DOBLE_DEREF(path)->type != END)
-//			break ;
-//		if (prev.ant_id != NO_ANT && prev.way_id != NO_ANT && path->next && DOBLE_DEREF(path->next)->type != END)
-//		{
-//			temp = DOBLE_DEREF(path->next)->ant;
-//			DOBLE_DEREF(path->next)->ant = prev;
-//			prev = temp;
-//		}
-//		else if (DOBLE_DEREF(path)->type == END)
-//		{
-//			i = 0;
-//			while (ants_in_ways[i].ant_id != NO_ANT)
-//				++i;
-//			ants_in_ways[i] = prev;
-//			break ;
-//		}
-//		path = path->next;
-//		++i;
-//	}
-//}
 
 void	update_ants(t_lemin *lemin, t_ant *ants_in_ways, t_list *path, t_ant ant)
 {
@@ -229,5 +195,3 @@ void	scatter_ants(t_lemin *lemin, t_list *paths)
 	display_movements(lemin, ants_in_ways, paths);
 	free(ants_in_ways);
 }
-
-

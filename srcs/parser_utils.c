@@ -3,37 +3,92 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 13:12:42 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/04 13:13:54 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/09 13:47:56 by konstantin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/lemin.h"
 
-char	line_numeric(char *line, char two_blanks)
-{
-	char	iter;
-	char	blanks;
-	char	word;
+// char	line_numeric(char *line, char two_blanks)
+// {
+// 	char	iter;
+// 	char	blanks;
+// 	char	word;
 
-	blanks = 0;
-	iter = -1;
-	word = 0;
-	while (line[++iter])
+// 	blanks = 0;
+// 	iter = -1;
+// 	word = 0;
+// 	while (line[++iter])
+// 	{
+// 		if (two_blanks && ftblank(line[iter]) && !word)
+// 			word = 1;
+// 		else if (word && two_blanks && !ft_isdigit(line[iter]) &&
+// 				!ftblank(line[iter]))
+// 			return (0);
+// 		else if (!two_blanks && !ft_isdigit(line[iter]))
+// 			return (0);
+// 		ftblank(line[iter]) ? ++blanks : 0;
+// 	}
+// 	if (two_blanks && blanks != 2)
+// 		return (0);
+// 	return (1);
+// }
+
+char	farm_exists(t_farm *farm, t_list *farms)
+{
+	while (farms)
 	{
-		if (two_blanks && ftblank(line[iter]) && !word)
-			word = 1;
-		else if (word && two_blanks && !ft_isdigit(line[iter]) &&
-				!ftblank(line[iter]))
-			return (0);
-		else if (!two_blanks && !ft_isdigit(line[iter]))
-			return (0);
-		ftblank(line[iter]) ? ++blanks : 0;
+		if (!ft_strcmp(DEREF(farms)->name, farm->name))
+			return (1);
+		if (DEREF(farms)->x == farm->x &&
+				DEREF(farms)->y == farm->y)
+			return (1);
+		farms = farms->next;
 	}
-	if (two_blanks && blanks != 2)
+	return (0);
+}
+
+char	line_farm(char *line)
+{
+	unsigned short		i;
+	unsigned short		j;
+
+	i = 0;
+	while (ft_strchr(line, ' '))
+	{
+		if (line[0] == '#')
+			return (0);
+		line = ft_strchr(line, ' ') + 1;
+		j = 0;
+		while (line[j] && line[j] != ' ')
+		{
+			if (line[j] < 48 || line[j] > 57)
+				return (0);
+			++j;
+		}
+		if (j == 0)
+			return (0);
+		++i;
+	}
+	if (i != 2)
 		return (0);
+	return (1);
+}
+
+char	line_ants(char *line)
+{
+	unsigned short	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] < 48 || line[i] > 57)
+			return (0);
+		++i;
+	}
 	return (1);
 }
 
@@ -60,10 +115,10 @@ t_list	*get_node_by_name(t_list *list, char *name)
 {
 	while (list)
 	{
-		if (ft_strequ(((t_farm *)list->content)->name, name))
+		if (!ft_strcmp(((t_farm *)list->content)->name, name))
 			return (list);
 		list = list->next;
 	}
-	ERROR();
+	ERROR(5);
 	return (NULL);
 }

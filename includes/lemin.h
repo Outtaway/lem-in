@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lemin.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:17:21 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/08 21:09:15 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/09 13:38:26 by konstantin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@
 # include "../libftprintf/includes/ft_printf.h"
 # include "../gnl/get_next_line.h"
 
-# define WR(line) write(1, line, ft_strlen(line))
-# define ERROR() { WR("ERROR\n"); exit(1); }
-# define DEL_GET(line, bf) ft_strdel(&line); get_next_line(0, &line, bf);
+# define WR(fd, line) write(fd, line, ft_strlen(line))
+# define ERROR(code) { WR(2, "ERROR\n"); exit(code); }
 # define DEREF(list) ((t_farm *)((list)->content))
 # define DOBLE_DEREF(list) (*((t_farm **)(list->content)))
 # define CLEAR_NODE(node) free(node->content); free(node);
-# define ADD_LINE(dst, str) ft_strcat(dst, str); ft_strcat(dst, "\n");
 
 # define REGULAR 0
 # define START 1
@@ -31,7 +29,6 @@
 
 # define UNMARKED 0
 # define MARKED 1
-# define DONE 2
 
 # define BLOCKED 1
 # define UNBLOCKED 0
@@ -62,6 +59,7 @@ typedef struct				s_lemin
 		t_list				*farms;
 		t_farm				*start;
 		t_farm				*end;
+		t_list				*input;
 		int					ants_count;
 }							t_lemin;
 
@@ -71,15 +69,13 @@ void						scatter_ants(t_lemin *lemin, t_list *paths);
 t_list						*get_node_by_name(t_list *list, char *name);
 
 int							list_size(t_list *list);
-
+char						farm_exists(t_farm *farm, t_list *farms);
+char						line_farm(char *line);
+char						line_ants(char *line);
 char						line_connection(char *line);
-char						line_numeric(char *line, char two_blanks);
-void						get_paths_length(t_list **paths_length, t_list *paths);
-void						display_paths(t_list *paths);
 void						shortest_paths(t_lemin *lemin, t_list **paths);
 void						bfs(t_lemin *lemin);
-void						get_lemin_struct(t_lemin *lemin, char *input);
-void						algorithm(t_lemin *lemin);
+void						get_lemin_struct(t_lemin *lemin);
 t_list						*queue_pop(t_list **list);
 
 #endif
