@@ -46,13 +46,7 @@ void		clear_graph(t_farm *start)
 	t_list		*conn;
 
 	if (start->is_blocked != BLOCKED)
-	{
 		start->state = UNMARKED;
-		if (start->type == REGULAR)
-			start->distance = _INT_MAX;
-		else
-			start->distance = 0;
-	}
 	conn = start->connections;
 	while (conn)
 	{

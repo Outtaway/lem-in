@@ -6,7 +6,7 @@
 /*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:40:22 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/09 13:44:29 by konstantin       ###   ########.fr       */
+/*   Updated: 2019/02/09 23:17:44 by konstantin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_list	*create_farm_node(t_lemin *lemin, char *data, char type)
 	res.type = type;
 	res.connections = NULL;
 	res.state = UNMARKED;
-	res.distance = type == START ? 0 : _INT_MAX;
+	res.distance = type == START ? 0 : _USHRT_MAX;
 	res.is_blocked = UNBLOCKED;
 	res.ants_count = type == START ? lemin->ants_count : 0;
 	res.ant.ant_id = NO_ANT;

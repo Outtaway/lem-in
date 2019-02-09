@@ -6,7 +6,7 @@
 /*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 13:28:26 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/09 22:16:47 by konstantin       ###   ########.fr       */
+/*   Updated: 2019/02/09 22:45:01 by konstantin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,6 @@ void	update_ants(t_lemin *lemin, int *amounts_of_ants, t_list *path, t_ant ant)
 	}
 }
 
-int		*ants_in_each_way(t_ant *ants_in_ways, t_lemin *lemin, t_list *paths)
-{
-	int		*res;
-	int		i;
-	int		j;
-
-	res = (int *)malloc(sizeof(int) * list_size(paths));
-	i = -1;
-	while (++i < list_size(paths))
-	{
-		res[i] = 0;
-		j = -1;
-		while (++j < lemin->ants_count)
-			if (ants_in_ways[j].way_id == i)
-				res[i]++;
-	}
-	return (res);
-}
-
 void	clear_paths(t_list *paths)
 {
 	t_list *path;
@@ -77,24 +58,6 @@ void	clear_paths(t_list *paths)
 		}
 		paths = paths->next;
 	}
-}
-
-void	display_status(t_list *paths)
-{
-	t_list *path;
-
-	while (paths)
-	{
-		path = (*((t_list **)(paths->content)))->next;
-		while (path)
-		{
-			if (DOBLE_DEREF(path)->ant.ant_id != NO_ANT)
-				ft_printf("L%d-%s ", DOBLE_DEREF(path)->ant.ant_id, DOBLE_DEREF(path)->name);
-			path = path->next;
-		}
-		paths = paths->next;
-	}
-	write(1, "\n", 1);
 }
 
 void	move_ants(t_lemin *lemin, char new_ant, t_list *path, t_ant ant)

@@ -6,7 +6,7 @@
 /*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:17:21 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/09 22:20:42 by konstantin       ###   ########.fr       */
+/*   Updated: 2019/02/09 23:14:37 by konstantin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # define REGULAR 0
 # define START 1
 # define END 2
-# define BUFF 64
+# define BUFF 32
 
 # define UNMARKED 0
 # define MARKED 1
@@ -64,8 +64,6 @@ typedef struct				s_lemin
 		t_list				*input;
 		int					ants_count;
 }							t_lemin;
-
-
 
 void						scatter_ants(t_lemin *lemin, t_list *paths);
 t_list						*get_node_by_name(t_list *list, char *name);

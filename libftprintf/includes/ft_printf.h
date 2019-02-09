@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpshenyc <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/07 14:42:15 by kpshenyc          #+#    #+#             */
-/*   Updated: 2018/11/07 14:48:22 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/09 23:08:58 by konstantin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@
 # define __ERR_STATE(st) if(st == -1) { return (-1); }
 # define __ERR_STATE_CL(st, i) if(st == -1) { *i = 0; return (-1); }
 # define __ERR_STATE_FREE(st, it) if (st == -1) { free(it); return (-1); }
+
+#pragma pack(1)
 
 typedef char	t_byte;
 typedef t_byte*	t_byte_seq;
