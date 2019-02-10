@@ -6,7 +6,7 @@
 /*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:28:07 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/09 22:45:32 by konstantin       ###   ########.fr       */
+/*   Updated: 2019/02/10 20:58:16 by konstantin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ int		main(int argc, char **argv)
 	shortest_paths(&lemin, &paths);
 	if (!paths)
 		ERROR(50);
-	display_input(lemin.input);
+	if (argc > 1 && !ft_strcmp(argv[1], "--no_input"))
+		;
+	else
+		display_input(lemin.input);
 	// display_paths(paths);
 	scatter_ants(&lemin, paths);
 	return (0);

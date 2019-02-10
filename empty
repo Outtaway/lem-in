@@ -1,7 +1,9 @@
-123
+10
 ##start
-aaaaa 1 2
+start 1 2
 ##end
-aaaab 4 5
-shit 12 12
-shit-aaaab
+end 4 5
+add 10 12
+start-add
+add-end
+start-end
