@@ -63,16 +63,19 @@ int		main(int argc, char **argv)
 	t_list		*paths;
 	char		*line;
 
-	// ft_printf("%d\n", sizeof(t_farm));
 	ft_bzero(&lemin, sizeof(lemin));
 	paths = NULL;
 	get_lemin_struct(&lemin);
 	if (!lemin.start || !lemin.end)
 		ERROR(6);
+	if (!lemin.start->connections || !lemin.end->connections)
+		ERROR(40);
 	bfs(&lemin);
 	if (lemin.end->distance == _INT_MAX)
 		ERROR(7);
 	shortest_paths(&lemin, &paths);
+	if (!paths)
+		ERROR(50);
 	display_input(lemin.input);
 	// display_paths(paths);
 	scatter_ants(&lemin, paths);

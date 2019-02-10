@@ -6,7 +6,7 @@
 /*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:40:22 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/09 23:17:44 by konstantin       ###   ########.fr       */
+/*   Updated: 2019/02/10 19:36:29 by konstantin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,16 +70,22 @@ void	set_start_end(t_lemin *lemin, char **line)
 void	get_lemin_struct(t_lemin *lemin)
 {
 	char	*line;
+	char	rooms_done;
 
+	rooms_done = 0;
 	get_next_line(0, &line, BUFF_SIZE);
-	if ((lemin->ants_count = ft_atoi(line)) == 0 || !line_ants(line))
+	if (!line || (lemin->ants_count = ft_atoi(line)) == 0 || !line_ants(line))
 		ERROR(1);
 	ft_lstadd(&(lemin->input), ft_lstnew(&line, sizeof(line)));
 	while (get_next_line(0, &line, BUFF_SIZE) > 0)
 	{
-		if (line_farm(line))
+		if (line_farm(line) && !rooms_done)
 			ft_lstadd(&(lemin->farms), create_farm_node(lemin, line, REGULAR));
-		else if (line_connection(line))
+		else if (line_farm(line) && rooms_done)
+		{
+			ERROR(113);
+		}
+		else if (line_connection(line) && (rooms_done = 1))
 			set_connection(lemin->farms, line);
 		else if (!ft_strcmp("##start", line) || !ft_strcmp("##end", line))
 			set_start_end(lemin, &line);
