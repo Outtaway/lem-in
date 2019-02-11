@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
+/*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 18:46:06 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/09 23:09:40 by konstantin       ###   ########.fr       */
+/*   Updated: 2019/02/11 19:26:19 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include "includes/type_limits.h"
 
-#pragma pack(1)
+# pragma pack(1)
 
 typedef struct		s_list
 {

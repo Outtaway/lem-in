@@ -6,7 +6,7 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:40:22 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/11 18:23:04 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/11 19:19:25 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	set_start_end(t_lemin *lemin, char **line)
 	type = !ft_strcmp("##start", *line) ? START : END;
 	ft_lstadd(&(lemin->input), ft_lstnew(line, sizeof(*line)));
 	while ((ret = get_next_line(0, line, BUFF_SIZE)) > 0 && (*line)[0] == '#')
-		ft_lstadd(&(lemin->input), ft_lstnew(&line, sizeof(line)));
+		ft_lstadd(&(lemin->input), ft_lstnew(line, sizeof(*line)));
 	if (ret == 0)
 		ERROR(413);
 	if (!line_farm(*line))

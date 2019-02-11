@@ -6,7 +6,7 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/13 17:26:46 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/01/11 11:17:30 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/11 19:25:09 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,7 @@ void	choose_type__(long long *value, t_sequence *seq,
 	else if (!ft_strcmp(seq->length, "hh"))
 		*value = (signed char)va_arg(*va_list_, long long);
 	else if (!ft_strcmp(seq->length, "j"))
-#ifdef __APPLE__
 		*value = (intmax_t)va_arg(*va_list_, unsigned long long);
-#elif __linux__
-		*value = (__intmax_t)va_arg(*va_list_, unsigned long long);
-#endif
 	else if (!ft_strcmp(seq->length, "z"))
 		*value = (size_t)va_arg(*va_list_, unsigned long long);
 	else if (!ft_strcmp(seq->length, ""))
@@ -58,11 +54,7 @@ void	choose_u_type__(unsigned long long *value, t_sequence *seq,
 	else if (!ft_strcmp(seq->length, "hh"))
 		*value = (unsigned char)va_arg(*va_list_, unsigned long long);
 	else if (!ft_strcmp(seq->length, "j"))
-#ifdef __APPLE__
 		*value = (uintmax_t)va_arg(*va_list_, unsigned long long);
-#elif __linux__
-		*value = (__uintmax_t)va_arg(*va_list_, unsigned long long);
-#endif
 	else if (!ft_strcmp(seq->length, "z"))
 		*value = (size_t)va_arg(*va_list_, unsigned long long);
 	else
