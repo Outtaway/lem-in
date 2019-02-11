@@ -6,7 +6,7 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/01 13:34:21 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/08 19:34:15 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/11 18:48:44 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	bfs(t_lemin *lemin)
 	}
 }
 
-void		clear_graph(t_farm *start)
+void	clear_graph(t_farm *start)
 {
 	t_list		*conn;
 
@@ -57,7 +57,7 @@ void		clear_graph(t_farm *start)
 	}
 }
 
-void		recursive_path(t_farm *farm, t_list **path)
+void	recursive_path(t_farm *farm, t_list **path)
 {
 	t_list	*conn;
 	t_farm	*to_next;
@@ -70,7 +70,7 @@ void		recursive_path(t_farm *farm, t_list **path)
 	conn = farm->connections;
 	to_next = NULL;
 	min = _INT_MAX;
-	while(conn)
+	while (conn)
 	{
 		if (DOBLE_DEREF(conn)->distance < min &&
 				DOBLE_DEREF(conn)->is_blocked == UNBLOCKED)
@@ -88,20 +88,18 @@ void	shortest_paths(t_lemin *lemin, t_list **paths)
 {
 	t_list		*path;
 	t_list		*conn;
-	t_list		*temp;
 
 	conn = lemin->end->connections;
 	while (conn)
 	{
 		path = NULL;
 		lemin->end->is_blocked = BLOCKED;
-		// ft_lstadd(&path, ft_lstnew(&(lemin->end), sizeof(lemin->end)));
 		recursive_path(lemin->end, &path);
 		if (DOBLE_DEREF(path)->type != START)
 		{
 			while (path)
 			{
-				temp = path;
+				TEMP_VAR(t_list *, path);
 				path = path->next;
 				free(temp->content);
 				free(temp);
@@ -115,36 +113,13 @@ void	shortest_paths(t_lemin *lemin, t_list **paths)
 	}
 }
 
-void	display_paths(t_list *paths)
+t_list	*get_node_by_type(t_list *list, char type)
 {
-	t_list		*path;
-
-	while (paths)
+	while (list)
 	{
-		path = *((t_list **)(paths->content));
-		while (path)
-		{
-			ft_printf(path->next ? "%s -> " : "%s\n" , DOBLE_DEREF(path)->name);
-			path = path->next;
-		}
-		paths = paths->next;
+		if (DOBLE_DEREF(list)->type == type)
+			return (list);
+		list = list->next;
 	}
+	return (NULL);
 }
-
-// void	get_paths_length(t_list **paths_length, t_list *paths)
-// {
-// 	t_list	*path;
-// 	size_t	len;
-// 	t_list	*res;
-
-// 	if (paths->next)
-// 		get_paths_length(paths_length, paths->next);
-// 	len = 0;
-// 	path = *((t_list **)(paths->content));
-// 	while (path->next)
-// 	{
-// 		path = path->next;
-// 		++len;
-// 	}
-// 	ft_lstadd(paths_length, ft_lstnew(&len, sizeof(len)));
-// }

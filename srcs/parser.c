@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
+/*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 17:40:22 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/10 19:36:29 by konstantin       ###   ########.fr       */
+/*   Updated: 2019/02/11 18:23:04 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,14 @@ void	set_connection(t_list *farms, char *line)
 void	set_start_end(t_lemin *lemin, char **line)
 {
 	char	type;
+	int		ret;
 
 	type = !ft_strcmp("##start", *line) ? START : END;
 	ft_lstadd(&(lemin->input), ft_lstnew(line, sizeof(*line)));
-	get_next_line(0, line, BUFF_SIZE);
+	while ((ret = get_next_line(0, line, BUFF_SIZE)) > 0 && (*line)[0] == '#')
+		ft_lstadd(&(lemin->input), ft_lstnew(&line, sizeof(line)));
+	if (ret == 0)
+		ERROR(413);
 	if (!line_farm(*line))
 		ERROR(2);
 	ft_lstadd(&(lemin->farms), create_farm_node(lemin, *line, type));
@@ -67,28 +71,23 @@ void	set_start_end(t_lemin *lemin, char **line)
 			(lemin->end = (t_farm *)(lemin->farms->content));
 }
 
-void	get_lemin_struct(t_lemin *lemin)
+void	get_lemin_struct(t_lemin *lemin, t_parser *parser)
 {
 	char	*line;
-	char	rooms_done;
 
-	rooms_done = 0;
-	get_next_line(0, &line, BUFF_SIZE);
-	if (!line || (lemin->ants_count = ft_atoi(line)) == 0 || !line_ants(line))
-		ERROR(1);
-	ft_lstadd(&(lemin->input), ft_lstnew(&line, sizeof(line)));
 	while (get_next_line(0, &line, BUFF_SIZE) > 0)
 	{
-		if (line_farm(line) && !rooms_done)
+		if (line_farm(line) && parser->ants && !(parser->conn) &&
+					(parser->rooms = 1))
 			ft_lstadd(&(lemin->farms), create_farm_node(lemin, line, REGULAR));
-		else if (line_farm(line) && rooms_done)
-		{
-			ERROR(113);
-		}
-		else if (line_connection(line) && (rooms_done = 1))
+		else if (line_connection(line) && parser->ants && parser->rooms &&
+					(parser->conn = 1))
 			set_connection(lemin->farms, line);
-		else if (!ft_strcmp("##start", line) || !ft_strcmp("##end", line))
+		else if ((!ft_strcmp("##start", line) || !ft_strcmp("##end", line)) &&
+					(parser->rooms = 1))
 			set_start_end(lemin, &line);
+		else if (line_ants(line) && !(parser->ants) && (parser->ants = 1))
+			lemin->ants_count = ft_atoi(line);
 		else if (line[0] != '#')
 			ERROR(3);
 		ft_lstadd(&(lemin->input), ft_lstnew(&line, sizeof(line)));
