@@ -6,7 +6,7 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:28:07 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/11 19:23:22 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/12 15:10:21 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int		main(int argc, char **argv)
 {
 	t_lemin		lemin;
 	t_list		*paths;
-	char		*line;
 
 	ft_bzero(&lemin, sizeof(lemin));
 	paths = NULL;

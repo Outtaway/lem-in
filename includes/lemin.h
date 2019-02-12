@@ -6,7 +6,7 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:17:21 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/11 18:49:58 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/12 15:09:27 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define REGULAR 0
 # define START 1
 # define END 2
-# define BUFF 32
+# define BUFF 255
 
 # define UNMARKED 0
 # define MARKED 1

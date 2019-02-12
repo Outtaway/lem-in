@@ -6,7 +6,7 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/04 13:12:42 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/11 18:41:03 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/12 14:41:19 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	line_ants(char *line)
 
 char	line_connection(char *line)
 {
-	char	iter;
+	short	iter;
 	char	dashes;
 
 	iter = -1;
