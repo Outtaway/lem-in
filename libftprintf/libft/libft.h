@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: konstantin <konstantin@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 18:46:06 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/11 19:26:05 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/03/09 22:47:53 by konstantin       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "includes/type_limits.h"
-
-# pragma pack(1)
 
 typedef struct		s_list
 {
@@ -109,5 +107,7 @@ int					ft_putulong(unsigned long long value);
 char				*ft_128itoa_base(__uint128_t value, char *base);
 int					ft_128value_width(__uint128_t value, int base);
 void				free_array(char ***array);
+int					ft_lstsize(t_list *lst);
+void				clear_list(t_list *list);
 
 #endif

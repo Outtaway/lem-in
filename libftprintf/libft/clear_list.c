@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd.c                                        :+:      :+:    :+:   */
+/*   clear_list.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kpshenyc <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/10/27 11:57:29 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/03/07 14:51:39 by kpshenyc         ###   ########.fr       */
+/*   Created: 2019/04/16 12:16:05 by kpshenyc          #+#    #+#             */
+/*   Updated: 2019/04/16 12:16:15 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd(t_list **alst, t_list *new)
+void		clear_list(t_list *list)
 {
-	new->next = *alst;
-	(*alst) = new;
+	if (list)
+	{
+		if (list->next)
+			clear_list(list->next);
+		free(list->content);
+		free(list);
+	}
 }

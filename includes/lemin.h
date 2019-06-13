@@ -6,7 +6,7 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:17:21 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/12 15:09:27 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/06/13 18:03:03 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@
 # define BLOCKED 1
 # define UNBLOCKED 0
 # define NO_ANT -1
-
-# pragma pack(1)
 
 typedef struct				s_ant
 {

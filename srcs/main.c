@@ -6,7 +6,7 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/28 15:28:07 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/12 15:10:21 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/02/12 16:00:57 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		display_input(t_list *input)
 				ft_strlen(*((char **)(input->content))));
 		write(1, "\n", 1);
 	}
-	return (0);
+	return (1);
 }
 
 int		list_size(t_list *list)
@@ -94,7 +94,7 @@ int		main(int argc, char **argv)
 	if (!paths)
 		ERROR(50);
 	(argc > 1 && !ft_strcmp(argv[1], "--no_input"))
-		? 0 : display_input(lemin.input);
+		? 0 : (display_input(lemin.input) && write(1, "\n", 1));
 	if (get_node_by_type(lemin.start->connections, END))
 		start_end(&lemin);
 	else

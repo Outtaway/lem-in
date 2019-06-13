@@ -1,42 +1,29 @@
-.PHONY: all re clean fclean
+.PHONY: all re fclean clean
 
-NAME=lem-in
-
-ifeq ($(OS), Linux)
-FLAGS=
-else
+CC=clang
 FLAGS=-Wextra -Wall -Werror
-endif
-
-GNL=get_next_line.c
-
-GNLO=get_next_line.o
-
-SRCS=ants.c main.c parser.c parser_utils.c paths.c
-
-OBJ=$(SRCS:.c=.o)
-
-LIBS=libftprintf/libftprintf.a
+NAME=lem-in
+FILENAMES=main ants parser_utils parser paths
+SRCS=$(addsuffix .c,$(FILENAMES))
+OBJS=$(addsuffix .o,$(FILENAMES))
+LIB_NAME=libftprintf/libftprintf.a
+LIB=libftprintf
 
 all: $(NAME)
 
-$(NAME): $(OBJ) $(LIBS)
-	gcc $(FLAGS) $(addprefix obj/, $(OBJ) $(GNLO)) $(LIBS) -o $(NAME)
+$(NAME): $(OBJS)
+	make -C $(LIB)
+	$(CC) $(FLAGS) $(OBJS) $(FRAMEWORKS) $(LIB_NAME) -o $(NAME)
 
-$(OBJ): $(addprefix srcs/, $(SRCS)) $(addprefix gnl/, $(GNL))
-	gcc $(FLAGS) -c $(addprefix srcs/, $(SRCS))
-	gcc $(FLAGS) -c $(addprefix gnl/, $(GNL))
-	mv $(OBJ) $(GNLO) obj/
-
-$(LIBS):
-	make -C libftprintf
+%.o: $(addprefix srcs/, %.c)
+	$(CC) -c $< $(FLAGS)
 
 clean:
-	/bin/rm -rf $(addprefix obj/, $(OBJ) $(GNLO))
 	make clean -C libftprintf
+	/bin/rm -f $(OBJS)
 
 fclean: clean
-	/bin/rm $(NAME)
 	make fclean -C libftprintf
+	/bin/rm -f $(NAME)
 
 re: fclean all

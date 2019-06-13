@@ -6,7 +6,7 @@
 #    By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/07 14:46:20 by kpshenyc          #+#    #+#              #
-#    Updated: 2019/01/11 11:01:38 by kpshenyc         ###   ########.fr        #
+#    Updated: 2019/03/07 14:16:00 by kpshenyc         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -114,6 +114,10 @@ SRC = srcs/additional_func.c\
 	libft/ft_uitoa_base.c\
 	libft/ft_value_width.c\
 	libft/free_array.c\
+	libft/ft_lstsize.c\
+	libft/clear_list.c\
+
+GNL=gnl/get_next_line.c
 
 SRO = additional_func.o\
 	ft_printf.o\
@@ -201,12 +205,15 @@ SRO = additional_func.o\
 	ft_uitoa_base.o\
 	ft_value_width.o\
 	free_array.o\
+	get_next_line.o\
+	ft_lstsize.o\
+	clear_list.o\
 
 all: $(NAME)
 
 $(NAME):
 	@echo "$(WARN_COLOR)-----------------------------------------------------------$(NO_COLOR)"
-	@gcc -c $(FLAGS) $(SRC)
+	@gcc -c $(FLAGS) $(SRC) $(GNL)
 	@echo "\tCompiling srcs-files $(OK_COLOR)                [done]$(NO_COLOR)"
 	@ar rc $(NAME) $(SRO)
 	@mv $(SRO) obj/

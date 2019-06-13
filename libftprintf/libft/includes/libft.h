@@ -6,7 +6,7 @@
 /*   By: kpshenyc <kpshenyc@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/10/22 18:46:06 by kpshenyc          #+#    #+#             */
-/*   Updated: 2019/02/11 19:26:19 by kpshenyc         ###   ########.fr       */
+/*   Updated: 2019/03/07 14:15:40 by kpshenyc         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,7 @@ int					ft_putulong(unsigned long long value);
 char				*ft_128itoa_base(__uint128_t value, char *base);
 int					ft_128value_width(__uint128_t value, int base);
 void				free_array(char ***array);
+int					ft_lstsize(t_list *lst);
+void				clear_list(t_list *list);
 
 #endif
